@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, BrainCircuit, Activity, AlertCircle, FileText, ChevronRight, CheckCircle2, User, Stethoscope } from 'lucide-react';
 import { fetchMemberById } from '../services/memberService.js';
 import Button from '../components/Button.jsx';
+import ExplainableAIPanel from '../components/ExplainableAIPanel.jsx';
 import '../../src/styles/pages.css';
 
 export default function Prediction() {
@@ -44,28 +45,7 @@ export default function Prediction() {
     }, 2000);
   };
 
-  // Mock SHAP explanations based on member data
-  const getExplanation = (type) => {
-    if (!member) return '';
-    const { conditions, utilization, age } = member;
-    
-    let reasons = [];
-    if (age > 75) reasons.push("Advanced age > 75 increases base risk.");
-    if (conditions.includes('CHF')) reasons.push("Presence of Congestive Heart Failure (CHF) is a strong positive predictor.");
-    if (conditions.includes('Diabetes')) reasons.push("Comorbid Diabetes contributes to risk scoring.");
-    if (utilization.edVisits > 0) reasons.push(`Recent ED visits (${utilization.edVisits}) significantly elevate acute risk.`);
-    if (utilization.inpatientAdmissions > 0) reasons.push("Prior inpatient admissions are highly correlated with readmission.");
-    
-    if (reasons.length === 0) reasons.push("No major chronic or utilization flags detected. Risk remains baseline.");
-
-    switch (type) {
-      case '30d': return reasons.slice(0, 2).join(' ') || "No significant short-term triggers identified.";
-      case '60d': return reasons.slice(0, 3).join(' ') || "Moderate-term risk factors are stable.";
-      case '90d': return reasons.join(' ');
-      case 'tier': return `Risk tier derived directly from cumulative 90-day probability and high-impact factors like ${conditions[0] || 'utilization history'}.`;
-      default: return "";
-    }
-  };
+  // We no longer need the mock getExplanation function as it is handled by ExplainableAIPanel
 
   const getRecommendations = () => {
     if (!member) return [];
@@ -217,10 +197,7 @@ export default function Prediction() {
                 <div className="kpi-card-custom__label">30-Day Hospitalization Risk</div>
                 <button className="btn-why" onClick={() => setActiveExplanation('30d')}>Why?</button>
                 {activeExplanation === '30d' && (
-                  <div className="explanation-box fade-in">
-                    <strong>Key Factors (SHAP):</strong><br/>
-                    {getExplanation('30d')}
-                  </div>
+                  <ExplainableAIPanel memberId={member.id} type="30d" title="30-Day Prediction Drivers (SHAP)" />
                 )}
               </div>
 
@@ -232,10 +209,7 @@ export default function Prediction() {
                 <div className="kpi-card-custom__label">60-Day Hospitalization Risk</div>
                 <button className="btn-why" onClick={() => setActiveExplanation('60d')}>Why?</button>
                 {activeExplanation === '60d' && (
-                  <div className="explanation-box fade-in">
-                    <strong>Key Factors (SHAP):</strong><br/>
-                    {getExplanation('60d')}
-                  </div>
+                  <ExplainableAIPanel memberId={member.id} type="60d" title="60-Day Prediction Drivers (SHAP)" />
                 )}
               </div>
 
@@ -247,10 +221,7 @@ export default function Prediction() {
                 <div className="kpi-card-custom__label">90-Day Hospitalization Risk</div>
                 <button className="btn-why" onClick={() => setActiveExplanation('90d')}>Why?</button>
                 {activeExplanation === '90d' && (
-                  <div className="explanation-box fade-in">
-                    <strong>Key Factors (SHAP):</strong><br/>
-                    {getExplanation('90d')}
-                  </div>
+                  <ExplainableAIPanel memberId={member.id} type="90d" title="90-Day Prediction Drivers (SHAP)" />
                 )}
               </div>
 
@@ -262,10 +233,7 @@ export default function Prediction() {
                 <div className="kpi-card-custom__label">90-Day Risk Tier</div>
                 <button className="btn-why" onClick={() => setActiveExplanation('tier')}>Why?</button>
                 {activeExplanation === 'tier' && (
-                  <div className="explanation-box fade-in">
-                    <strong>Key Factors (SHAP):</strong><br/>
-                    {getExplanation('tier')}
-                  </div>
+                  <ExplainableAIPanel memberId={member.id} type="tier" title="Risk Tier Drivers (SHAP)" />
                 )}
               </div>
             </div>
