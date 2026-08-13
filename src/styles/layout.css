@@ -1,0 +1,40 @@
+/* ============================================
+   CareGuard AI – Layout Styles
+   ============================================ */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-page-bg);
+}
+
+.app-layout__main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  padding: var(--spacing-xl) var(--spacing-2xl) var(--spacing-3xl) var(--spacing-2xl);
+  min-height: calc(100vh - var(--header-height));
+  transition: margin-left var(--transition-slow);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.app-layout__content {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .app-layout__main {
+    margin-left: 0;
+    padding: var(--spacing-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-layout__main {
+    padding: var(--spacing-sm) var(--spacing-xs);
+  }
+}

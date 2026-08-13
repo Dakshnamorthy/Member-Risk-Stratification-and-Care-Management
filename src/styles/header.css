@@ -1,0 +1,216 @@
+/* ============================================
+   CareGuard AI – Header Styles
+   ============================================ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--header-height);
+  background: var(--color-page-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-2xl);
+  z-index: var(--z-header);
+  transition: left var(--transition-slow);
+}
+
+/* ── Left Side ── */
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.header__menu-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-navy);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(15, 29, 64, 0.05);
+}
+
+.header__search {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.header__search-icon {
+  position: absolute;
+  left: 20px;
+  color: var(--color-gray-400);
+  pointer-events: none;
+}
+
+.header__search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--spacing-xl) 0 48px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(15, 29, 64, 0.05);
+  background-color: var(--color-white);
+  color: var(--color-gray-800);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-xs);
+}
+
+.header__search-input:focus {
+  border-color: var(--color-primary-blue);
+  box-shadow: 0 0 0 3px rgba(62, 100, 255, 0.15);
+}
+
+.header__search-input::placeholder {
+  color: var(--color-gray-400);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Right Side ── */
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.header__icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-white);
+  border: 1px solid rgba(15, 29, 64, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  position: relative;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+}
+
+.header__icon-btn:hover {
+  color: var(--color-primary-navy);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__icon-btn--has-badge::after,
+.header__icon-badge {
+  content: '';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-high-risk);
+  border: 2px solid var(--color-white);
+}
+
+/* ── Doctor Profile ── */
+.header__profile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-xs);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-left: var(--spacing-sm);
+}
+
+.header__avatar-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 2px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header__profile-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.header__profile-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-navy);
+  line-height: 1.2;
+}
+
+.header__profile-role {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+}
+
+.header__profile-chevron {
+  color: var(--color-gray-400);
+  margin-left: 2px;
+  transition: transform var(--transition-fast);
+}
+
+.header__profile:hover .header__profile-chevron {
+  transform: translateY(1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header {
+    left: 0;
+    padding: 0 var(--spacing-base);
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .header__menu-btn {
+    display: flex;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .header__search {
+    display: none; /* Hide search bar on tablet/mobile header */
+  }
+
+  .header__profile-info {
+    display: none; /* Hide textual profile details on small viewports */
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .header__icon-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .header__avatar-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+}
