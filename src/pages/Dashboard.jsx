@@ -85,11 +85,6 @@ export default function Dashboard() {
             <div>
               <h1 className="dashboard__greeting-title">Predictive AI Dashboard</h1>
             </div>
-            <div className="dashboard__actions">
-              <button className="btn-filter-settings" aria-label="Filters">
-                <SlidersHorizontal size={18} />
-              </button>
-            </div>
           </div>
 
           {/* KPI Cards Grid */}

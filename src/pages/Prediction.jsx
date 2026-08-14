@@ -11,6 +11,23 @@ export default function Prediction() {
   const [status, setStatus] = useState('idle'); // idle, loading_member, error_member, ready_to_predict, predicting, prediction_complete
   const [errorMsg, setErrorMsg] = useState('');
   const [activeExplanation, setActiveExplanation] = useState(null);
+  const [formData, setFormData] = useState({
+    age: '',
+    chronic_condition_count: '',
+    inpatient_admissions_12m: '',
+    er_visits_90d: '',
+    total_healthcare_cost_90d: '',
+    days_since_last_inpatient: '',
+    prescription_count_90d: '',
+    diagnosis_count_90d: ''
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -25,6 +42,16 @@ export default function Prediction() {
       const data = await fetchMemberById(searchQuery.trim());
       if (data) {
         setMember(data);
+        setFormData({
+          age: data.raw?.age || '',
+          chronic_condition_count: data.raw?.chronic_condition_count || '',
+          inpatient_admissions_12m: data.raw?.inpatient_admissions_12m || '',
+          er_visits_90d: data.raw?.er_visits_90d || '',
+          total_healthcare_cost_90d: data.raw?.total_healthcare_cost_90d || '',
+          days_since_last_inpatient: data.raw?.days_since_last_inpatient || '',
+          prescription_count_90d: data.raw?.prescription_count_90d || '',
+          diagnosis_count_90d: data.raw?.diagnosis_count_90d || ''
+        });
         setStatus('ready_to_predict');
       } else {
         setErrorMsg('Member not found. Please try M-015 or M-016.');
@@ -114,7 +141,7 @@ export default function Prediction() {
                   <FileText size={24} color="#10B981" />
                 </div>
                 <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#1E293B', marginBottom: '8px' }}>2. Auto-Extraction</h3>
-                <p style={{ fontSize: '14px', color: '#64748B', lineHeight: '1.5' }}>The system auto-extracts 33 critical ML features including ED visits, comorbidities, and Rx history.</p>
+                <p style={{ fontSize: '14px', color: '#64748B', lineHeight: '1.5' }}>The system auto-extracts 25 features from the dataset, and you configure the top 8 predictive features.</p>
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ width: '56px', height: '56px', backgroundColor: '#FFEDD5', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto' }}>
@@ -140,26 +167,42 @@ export default function Prediction() {
               </div>
               <div className="feature-badge">
                 <CheckCircle2 size={16} />
-                <span>33/33 ML Features Auto-Extracted</span>
+                <span>8 ML Features Configured (25 Auto-Extracted)</span>
               </div>
             </div>
 
-            <div className="summary-stats-grid">
-              <div className="summary-stat-box">
-                <span className="stat-label">Chronic Conditions</span>
-                <span className="stat-value">{member.chronicConditionCount}</span>
+            <div className="prediction-input-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginTop: '24px', marginBottom: '24px' }}>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Age</label>
+                <input type="number" name="age" value={formData.age} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
               </div>
-              <div className="summary-stat-box">
-                <span className="stat-label">ED Visits (YTD)</span>
-                <span className="stat-value">{member.utilization.edVisits}</span>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Chronic Conditions</label>
+                <input type="number" name="chronic_condition_count" value={formData.chronic_condition_count} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
               </div>
-              <div className="summary-stat-box">
-                <span className="stat-label">Total Meds</span>
-                <span className="stat-value">{member.pharmacy.activeMedications}</span>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Inpatient Admits (12m)</label>
+                <input type="number" name="inpatient_admissions_12m" value={formData.inpatient_admissions_12m} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
               </div>
-              <div className="summary-stat-box">
-                <span className="stat-label">Est. Total Cost</span>
-                <span className="stat-value">${member.costs.total.toLocaleString()}</span>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>ED Visits (90d)</label>
+                <input type="number" name="er_visits_90d" value={formData.er_visits_90d} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
+              </div>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Healthcare Cost (90d)</label>
+                <input type="number" name="total_healthcare_cost_90d" value={formData.total_healthcare_cost_90d} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
+              </div>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Days Since Inpatient</label>
+                <input type="number" name="days_since_last_inpatient" value={formData.days_since_last_inpatient} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
+              </div>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Prescriptions (90d)</label>
+                <input type="number" name="prescription_count_90d" value={formData.prescription_count_90d} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
+              </div>
+              <div className="input-group" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#64748B' }}>Diagnoses (90d)</label>
+                <input type="number" name="diagnosis_count_90d" value={formData.diagnosis_count_90d} onChange={handleInputChange} style={{ padding: '8px 12px', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '14px' }} />
               </div>
             </div>
 

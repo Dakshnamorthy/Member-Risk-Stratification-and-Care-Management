@@ -68,12 +68,6 @@ export const NAV_SECTIONS = [
         path: '/interventions',
         icon: Target,
       },
-      {
-        id: 'outcomes',
-        label: 'Outcomes Tracker',
-        path: '/outcomes',
-        icon: Activity,
-      },
     ],
   },
   {

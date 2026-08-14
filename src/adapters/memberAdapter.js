@@ -266,6 +266,7 @@ export function adaptMember(rawRow) {
     targets,
     metadata: parseMetadata(rawRow, id),
     clinical: parseClinical(rawRow, targets),
+    raw: rawRow,
   };
 }
 

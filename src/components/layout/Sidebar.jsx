@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Home, Users, Activity, TrendingUp, BarChart3, ClipboardList, Settings } from 'lucide-react';
+import { Home, Users, Activity, TrendingUp, BarChart3, ClipboardList, Settings, DollarSign } from 'lucide-react';
 import '../../styles/sidebar.css';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -9,8 +9,8 @@ export default function Sidebar({ isOpen, onClose }) {
     { id: 'dashboard', path: '/', icon: Home, label: 'Dashboard' },
     { id: 'members', path: '/members', icon: Users, label: 'Members' },
     { id: 'prediction', path: '/prediction', icon: Activity, label: 'Prediction' },
-    { id: 'outcomes', path: '/outcomes', icon: TrendingUp, label: 'Outcomes' },
     { id: 'analytics', path: '/analytics', icon: BarChart3, label: 'Analytics' },
+    { id: 'roi', path: '/roi', icon: DollarSign, label: 'ROI Dashboard' },
     { id: 'care-plans', path: '/care-plans', icon: ClipboardList, label: 'Care Plans' },
   ];
 
@@ -54,18 +54,6 @@ export default function Sidebar({ isOpen, onClose }) {
           </div>
         </nav>
 
-        {/* Bottom Settings Link */}
-        <div className="sidebar__footer">
-          <NavLink
-            to="/settings"
-            className={`sidebar__link-btn ${location.pathname === '/settings' ? 'sidebar__link-btn--active' : ''}`}
-            onClick={onClose}
-            id="nav-settings"
-            title="Settings"
-          >
-            <Settings size={20} />
-          </NavLink>
-        </div>
       </aside>
     </>
   );

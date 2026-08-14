@@ -14,7 +14,6 @@ const RiskStratification = lazy(() => import('../pages/RiskStratification'));
 const Alerts = lazy(() => import('../pages/Alerts'));
 const CarePlans = lazy(() => import('../pages/CarePlans'));
 const Interventions = lazy(() => import('../pages/Interventions'));
-const Outcomes = lazy(() => import('../pages/Outcomes'));
 const Analytics = lazy(() => import('../pages/Analytics'));
 const ROI = lazy(() => import('../pages/ROI'));
 const Reports = lazy(() => import('../pages/Reports'));
@@ -32,7 +31,6 @@ export const routes = [
   { path: '/alerts', element: Alerts, title: 'Alert Center', breadcrumb: 'Operations' },
   { path: '/care-plans', element: CarePlans, title: 'Care Plans', breadcrumb: 'Care Management' },
   { path: '/interventions', element: Interventions, title: 'Interventions', breadcrumb: 'Care Management' },
-  { path: '/outcomes', element: Outcomes, title: 'Outcomes Tracker', breadcrumb: 'Care Management' },
   { path: '/analytics', element: Analytics, title: 'Risk Analytics', breadcrumb: 'Analytics' },
   { path: '/roi', element: ROI, title: 'ROI Dashboard', breadcrumb: 'Analytics' },
   { path: '/reports', element: Reports, title: 'Reports', breadcrumb: 'Analytics' },
