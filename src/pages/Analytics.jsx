@@ -204,13 +204,17 @@ export default function Analytics() {
           <p className="analytics-subtitle">Risk severity distribution among major chronic disease groups.</p>
           <div className="chart-container" style={{ height: '300px', marginTop: '16px' }}>
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={conditionRiskData}>
-                <PolarGrid stroke="#E5E7EB" />
-                <PolarAngleAxis dataKey="condition" tick={{ fill: '#4B5563', fontSize: 12 }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <Radar name="Avg Risk Score" dataKey="avgRisk" stroke="#F97316" fill="#F97316" fillOpacity={0.4} />
-                <RechartsTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
-              </RadarChart>
+              <BarChart data={conditionRiskData} margin={{ top: 20, right: 20, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#E2E8F0" />
+                <XAxis dataKey="condition" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748B', fontWeight: 500 }} dy={10} />
+                <YAxis domain={[0, 100]} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#94A3B8' }} />
+                <RechartsTooltip 
+                  cursor={{fill: 'rgba(249, 115, 22, 0.05)'}} 
+                  contentStyle={{ borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 8px 16px rgba(0,0,0,0.08)' }} 
+                  formatter={(value) => [`${value}%`, 'Avg Risk Score']}
+                />
+                <Bar dataKey="avgRisk" fill="#F97316" radius={[6, 6, 0, 0]} barSize={36} />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

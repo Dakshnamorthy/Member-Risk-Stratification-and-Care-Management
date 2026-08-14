@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
+import ChatbotWidget from './components/ChatbotWidget';
 import { routes } from './utils/routes';
 import './styles/global.css';
 
@@ -50,8 +51,11 @@ export default function App() {
               />
             );
           })}
+          {/* Catch-all route to redirect unknown URLs to Dashboard */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      <ChatbotWidget />
     </BrowserRouter>
   );
 }

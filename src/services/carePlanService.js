@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'careguard.carePlans';
+const STORAGE_KEY = 'careguard.carePlans.v2';
 
 const DEFAULT_CARE_PLANS = [
   {
@@ -13,6 +13,17 @@ const DEFAULT_CARE_PLANS = [
     details: 'Member has chronic conditions with rising ED visits. Start care manager outreach and review medication adherence.',
   },
   {
+    id: 'CP-1006',
+    memberId: 'M-015',
+    riskTier: 'Very High',
+    riskScore: 88.2,
+    recommendedIntervention: 'Immediate ICP Enrollment',
+    careManager: 'Unassigned',
+    status: 'Identified',
+    dueDate: '2026-08-15',
+    details: 'High probability of 30-day readmission due to CHF exacerbation.',
+  },
+  {
     id: 'CP-1002',
     memberId: 'M-002',
     riskTier: 'Moderate',
@@ -22,6 +33,17 @@ const DEFAULT_CARE_PLANS = [
     status: 'Contacted',
     dueDate: '2026-08-20',
     details: 'A follow-up call is needed to confirm support services and care plan activation.',
+  },
+  {
+    id: 'CP-1007',
+    memberId: 'M-022',
+    riskTier: 'High',
+    riskScore: 45.1,
+    recommendedIntervention: 'Home Health Evaluation',
+    careManager: 'Noah S.',
+    status: 'Contacted',
+    dueDate: '2026-08-22',
+    details: 'Patient agreed to a home health evaluation during last call. Pending scheduling.',
   },
   {
     id: 'CP-1003',
@@ -35,6 +57,17 @@ const DEFAULT_CARE_PLANS = [
     details: 'Member is stable, but preventive care should be confirmed to keep risk low.',
   },
   {
+    id: 'CP-1008',
+    memberId: 'M-034',
+    riskTier: 'Moderate',
+    riskScore: 22.4,
+    recommendedIntervention: 'Dietary Counseling',
+    careManager: 'Avery L.',
+    status: 'Intervention In Progress',
+    dueDate: '2026-08-25',
+    details: 'Currently undergoing 6-week dietary counseling for newly diagnosed pre-diabetes.',
+  },
+  {
     id: 'CP-1004',
     memberId: 'M-004',
     riskTier: 'High',
@@ -46,6 +79,17 @@ const DEFAULT_CARE_PLANS = [
     details: 'Member requires discharge planning and home support to avoid readmission.',
   },
   {
+    id: 'CP-1009',
+    memberId: 'M-041',
+    riskTier: 'High',
+    riskScore: 39.0,
+    recommendedIntervention: 'Post-discharge Med Rec',
+    careManager: 'Sam R.',
+    status: 'Follow-up',
+    dueDate: '2026-08-14',
+    details: 'Needs medication reconciliation following recent skilled nursing facility discharge.',
+  },
+  {
     id: 'CP-1005',
     memberId: 'M-005',
     riskTier: 'Moderate',
@@ -55,6 +99,17 @@ const DEFAULT_CARE_PLANS = [
     status: 'Completed',
     dueDate: null,
     details: 'Care plan actions were completed; validate member has follow-up resources in place.',
+  },
+  {
+    id: 'CP-1010',
+    memberId: 'M-055',
+    riskTier: 'Low',
+    riskScore: 4.1,
+    recommendedIntervention: 'Annual Wellness Check',
+    careManager: 'Dana T.',
+    status: 'Completed',
+    dueDate: null,
+    details: 'Annual wellness check completed successfully. No immediate concerns.',
   },
 ];
 
